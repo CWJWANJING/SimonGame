@@ -4,7 +4,7 @@ buttonColours = ["red", "green", "yellow", "blue"];
 
 randomColour = buttonColours[nextSequence()];
 
-blink("#"+randomColour);
+blink("#"+randomColour, 1);
 
 playSoundByColour(randomColour);
 
@@ -16,10 +16,11 @@ function nextSequence() {
     return randomNumber;
 }
 
-function blink(colourBtn) {
+function blink(colourBtn, repeat) {
+    if(!repeat) return;
     $(colourBtn).fadeOut('slow', function() {
         $(this).fadeIn('slow', function() {
-            blink(this);
+            blink(this, repeat - 1);
         });
     });
 }
