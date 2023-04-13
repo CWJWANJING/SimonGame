@@ -1,3 +1,24 @@
+$(document).ready(function(){
+    repeat = 1;
+    
+    $("#red").click(function(){
+        playSoundByColour("red");
+        blink("#red", repeat);
+    });
+    $("#green").click(function(){
+        playSoundByColour("green");
+        blink("#green", repeat);
+    });
+    $("#yellow").click(function(){
+        playSoundByColour("yellow");
+        blink("#yellow", repeat);
+    });
+    $("#blue").click(function(){
+        playSoundByColour("blue");
+        blink("#blue", repeat);
+    });
+});
+
 gameSequence = [];
 
 buttonColours = ["red", "green", "yellow", "blue"];
@@ -18,8 +39,8 @@ function nextSequence() {
 
 function blink(colourBtn, repeat) {
     if(!repeat) return;
-    $(colourBtn).fadeOut('slow', function() {
-        $(this).fadeIn('slow', function() {
+    $(colourBtn).fadeOut(150, function() {
+        $(this).fadeIn(150, function() {
             blink(this, repeat - 1);
         });
     });
