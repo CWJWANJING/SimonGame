@@ -1,23 +1,14 @@
-$(document).ready(function(){
-    repeat = 1;
-    
-    $("#red").click(function(){
-        playSoundByColour("red");
-        blink("#red", repeat);
-    });
-    $("#green").click(function(){
-        playSoundByColour("green");
-        blink("#green", repeat);
-    });
-    $("#yellow").click(function(){
-        playSoundByColour("yellow");
-        blink("#yellow", repeat);
-    });
-    $("#blue").click(function(){
-        playSoundByColour("blue");
-        blink("#blue", repeat);
-    });
-});
+userClickedPattern = [];
+
+userClickedColour = "";
+
+$(".btn").click(function() {
+    userClickedColour = $(this).attr("id");
+    playSoundByColour(userClickedColour);
+    blink("#"+userClickedColour, 1);
+    userClickedPattern.push(userClickedColour);
+    console.log(userClickedPattern);
+})
 
 gameSequence = [];
 
@@ -29,7 +20,7 @@ blink("#"+randomColour, 1);
 
 playSoundByColour(randomColour);
 
-gameSequence.append(randomColour);
+gameSequence.push(randomColour);
 
 function nextSequence() {
     range = 4;
