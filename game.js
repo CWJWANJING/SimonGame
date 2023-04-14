@@ -2,6 +2,12 @@ userClickedPattern = [];
 
 userClickedColour = "";
 
+gameSequence = [];
+
+gameStarted = false;
+
+level = 0;
+
 $(".btn").click(function() {
     userClickedColour = $(this).attr("id");
     playSoundByColour(userClickedColour);
@@ -10,22 +16,27 @@ $(".btn").click(function() {
     console.log(userClickedPattern);
 })
 
-gameSequence = [];
+$("body").on("keydown", function () {
+    delay = 150; // 0.5 second
+    if (gameStarted == false) {
+        setTimeout(function() {
+            gameStarted = true;
+            nextSequence();
+        }, delay);
+    }
+  });
 
 buttonColours = ["red", "green", "yellow", "blue"];
-
-randomColour = buttonColours[nextSequence()];
-
-blink("#"+randomColour, 1);
-
-playSoundByColour(randomColour);
-
-gameSequence.push(randomColour);
 
 function nextSequence() {
     range = 4;
     randomNumber = Math.floor(Math.random() * range);
-    return randomNumber;
+    randomColour = buttonColours[randomNumber];
+    blink("#"+randomColour, 1);
+    playSoundByColour(randomColour);
+    gameSequence.push(randomColour);
+    $("h1").text("Level " + level);
+    level += 1;
 }
 
 function blink(colourBtn, repeat) {
