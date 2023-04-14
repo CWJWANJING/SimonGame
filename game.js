@@ -9,11 +9,12 @@ gameStarted = false;
 level = 0;
 
 $(".btn").click(function() {
-    userClickedColour = $(this).attr("id");
-    playSoundByColour(userClickedColour);
-    blink("#"+userClickedColour, 1);
-    userClickedPattern.push(userClickedColour);
-    console.log(userClickedPattern);
+    if (gameStarted == true) {
+        userClickedColour = $(this).attr("id");
+        playSoundByColour(userClickedColour);
+        blink("#"+userClickedColour, 1);
+        userClickedPattern.push(userClickedColour);
+    }
 })
 
 $("body").on("keydown", function () {
