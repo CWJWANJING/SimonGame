@@ -9,11 +9,19 @@ gameStarted = false;
 level = 0;
 
 $(".btn").click(function() {
+    delay = 700
     if (gameStarted == true) {
         userClickedColour = $(this).attr("id");
         playSoundByColour(userClickedColour);
         blink("#"+userClickedColour, 1);
         userClickedPattern.push(userClickedColour);
+
+        setTimeout(function() {
+            console.log(level);
+            level = checkPattern(level);
+        }, delay);
+
+        
     }
 })
 
@@ -23,11 +31,31 @@ $("body").on("keydown", function () {
         setTimeout(function() {
             gameStarted = true;
             nextSequence();
+            $("h1").text("Level " + level);
         }, delay);
     }
   });
 
 buttonColours = ["red", "green", "yellow", "blue"];
+
+function checkPattern(level) {
+    delay = 700;
+    if (userClickedPattern[level] === gameSequence[level]) {
+        if (userClickedPattern.length === gameSequence.length) {
+            console.log(gameSequence);
+            console.log(userClickedPattern);
+            level++;
+            $("h1").text("Level " + level);
+            console.log(level);
+            userClickedPattern = [];
+            setTimeout(function() {
+                nextSequence();
+            }, delay);
+        }
+    }
+
+    return level;
+}
 
 function nextSequence() {
     range = 4;
@@ -36,8 +64,6 @@ function nextSequence() {
     blink("#"+randomColour, 1);
     playSoundByColour(randomColour);
     gameSequence.push(randomColour);
-    $("h1").text("Level " + level);
-    level += 1;
 }
 
 function blink(colourBtn, repeat) {
